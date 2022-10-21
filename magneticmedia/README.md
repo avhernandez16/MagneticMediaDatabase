@@ -1,2 +1,0 @@
-# MagneticMediaDatabase
-desarrollo bd cintoteca
