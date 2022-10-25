@@ -1,6 +1,8 @@
 package magneticmedia.magneticmedia.services;
 
-import magneticmedia.magneticmedia.dtos.RegisterUserDTO;
+import magneticmedia.magneticmedia.dtos.LogInUserDto;
+import magneticmedia.magneticmedia.dtos.RegisterUserDto;
+import magneticmedia.magneticmedia.exceptions.LogInException;
 import magneticmedia.magneticmedia.exceptions.RegisterException;
 import magneticmedia.magneticmedia.models.User;
 import magneticmedia.magneticmedia.repositories.UserRepository;
@@ -18,7 +20,7 @@ public class UserService {
     @Autowired
     ModelMapper modelMapper;
 
-    public void registerUser(RegisterUserDTO registerUserDTO) {
+    public void registerUser(RegisterUserDto registerUserDTO) {
         Optional<User> userWithUserNumber = userRepository.findById(registerUserDTO.getUserNumber());
         if(userWithUserNumber.isPresent()){
             throw new RegisterException("ya existe un usuario en el sistema usando el numero de usuario brindado");
@@ -26,5 +28,12 @@ public class UserService {
 
         User newUser = modelMapper.map(registerUserDTO, User.class);
         userRepository.save(newUser);
+    }
+
+    public void loginUser(LogInUserDto logInUserDto) {
+        Optional<User> userWithUserNumber = userRepository.findById(logInUserDto.getUserNumber());
+        if(userWithUserNumber.isEmpty() || !userWithUserNumber.get().givenPasswordIsCorrect(logInUserDto.getPassword())){
+            throw new LogInException("numero de usuario o contraseña incorrecto");
+        }
     }
 }

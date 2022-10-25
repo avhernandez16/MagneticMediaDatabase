@@ -7,14 +7,12 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
 @Valid
-public class RegisterUserDTO {
+public class RegisterUserDto {
 
     @NotBlank(message = "User Number field can't be null or empty in the body json")
     @Length(min = 8, max = 8, message = "User Number should have 8 characters length")
