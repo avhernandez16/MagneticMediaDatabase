@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class UserController {
 
@@ -15,7 +17,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/user/register")
-    public ResponseEntity<RegisterUserDTO> registerUser(@RequestBody RegisterUserDTO registerUserDTO){
+    public ResponseEntity<RegisterUserDTO> registerUser(@Valid @RequestBody RegisterUserDTO registerUserDTO){
         userService.registerUser(registerUserDTO);
         return ResponseEntity.ok().build();
     }
