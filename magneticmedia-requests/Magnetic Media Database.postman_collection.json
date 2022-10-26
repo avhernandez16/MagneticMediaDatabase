@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "cdd05c4e-2f22-4dc3-b982-53225532370a",
+		"name": "Magnetic Media Database",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23519815"
+	},
+	"item": [
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8030/MagneticMediaDatabase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8030",
+					"path": [
+						"MagneticMediaDatabase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userNumber\": \"A2H3C0E4\",\r\n    \"name\": \"Francisco Spinelli\",\r\n    \"password\": \"42547268Abuelo$\",\r\n    \"wantsAudit\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8030/magneticMediaDatabase/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8030",
+					"path": [
+						"magneticMediaDatabase",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogIn User",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userNumber\": \"A2H3C0E4\",\r\n    \"password\": \"42547268Abuelo$\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8030/magneticMediaDatabase/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8030",
+					"path": [
+						"magneticMediaDatabase",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit User Data",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"CarinaSpinelli\",\r\n    \"password\": \"42547268Abuelo$\",\r\n    \"wantsAudit\": \"false\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8030/magneticMediaDatabase/user/A2H3C0E4/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8030",
+					"path": [
+						"magneticMediaDatabase",
+						"user",
+						"A2H3C0E4",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
