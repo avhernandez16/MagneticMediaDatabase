@@ -1,6 +1,5 @@
 package magneticmedia.magneticmedia.dtos;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -13,12 +12,8 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 @Valid
-public class RegisterUserDto {
+public class UpdateUserDto {
 
-    @NotBlank(message = "User Number field can't be null or empty in the body json")
-    @Length(min = 8, max = 8, message = "User Number should have 8 characters length")
-    @Pattern(regexp = "^[A-Z0-9]*$", message = "User Number should have only numbers and uppercase letters")
-    private String userNumber;
     @NotBlank(message = "Name field can't be null or empty in the body json")
     @Length(min = 4, max = 20, message = "Name should have between 4 and 20 characters length")
     private String name;

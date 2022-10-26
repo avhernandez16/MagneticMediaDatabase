@@ -2,6 +2,8 @@ package magneticmedia.magneticmedia.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import magneticmedia.magneticmedia.dtos.RegisterUserDto;
+import magneticmedia.magneticmedia.dtos.UpdateUserDto;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,5 +24,11 @@ public class User {
 
     public Boolean givenPasswordIsCorrect(String password){
         return this.password.equals(password);
+    }
+
+    public void updateFields(UpdateUserDto updateUserDto) {
+        this.name = updateUserDto.getName();
+        this.password = updateUserDto.getPassword();
+        this.wantsAudit = updateUserDto.getWantsAudit();
     }
 }
