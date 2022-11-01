@@ -22,8 +22,6 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     ModelMapper modelMapper;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     public void registerUser(RegisterUserDto registerUserDTO) {
         Optional<User> userWithUserNumber = userRepository.findById(registerUserDTO.getUserNumber());
@@ -31,7 +29,6 @@ public class UserService {
             throw new RegisterException("Ya existe un usuario en el sistema usando el numero de usuario brindado");
         }
 
-        registerUserDTO.setPassword(passwordEncoder.encode(registerUserDTO.getPassword()));
         User newUser = modelMapper.map(registerUserDTO, User.class);
         userRepository.save(newUser);
     }
