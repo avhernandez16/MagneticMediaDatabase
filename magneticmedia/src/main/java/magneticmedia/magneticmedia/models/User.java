@@ -21,6 +21,7 @@ public class User {
     private String name;
     private String password;
     private Boolean wantsAudit;
+    private byte[] salt;
 
     public Boolean givenPasswordIsCorrect(String password){
         return this.password.equals(password);

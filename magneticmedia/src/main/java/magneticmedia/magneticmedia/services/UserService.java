@@ -21,6 +21,8 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    PasswordHashingService passwordHashingService;
 
     public void registerUser(RegisterUserDto registerUserDTO) {
         Optional<User> userWithUserNumber = userRepository.findById(registerUserDTO.getUserNumber());
@@ -28,13 +30,24 @@ public class UserService {
             throw new RegisterException("Ya existe un usuario en el sistema usando el numero de usuario brindado");
         }
 
+        byte[] randomSalt = passwordHashingService.generateRandomSalt();
+        String hashedPassword = passwordHashingService.hashPassword(registerUserDTO.getPassword(), randomSalt);
+        registerUserDTO.setPassword(hashedPassword);
+
         User newUser = modelMapper.map(registerUserDTO, User.class);
+        newUser.setSalt(randomSalt);
         userRepository.save(newUser);
     }
 
     public void loginUser(LogInUserDto logInUserDto) {
-        Optional<User> userWithUserNumber = userRepository.findById(logInUserDto.getUserNumber());
-        if(userWithUserNumber.isEmpty() || !userWithUserNumber.get().givenPasswordIsCorrect(logInUserDto.getPassword())){
+        try {
+            Optional<User> optionalUserWithUserNumber = userRepository.findById(logInUserDto.getUserNumber());
+            User userWithUserNumber = optionalUserWithUserNumber.orElseThrow(NullPointerException::new);
+            String hashedPassword = passwordHashingService.hashPassword(logInUserDto.getPassword(), userWithUserNumber.getSalt());
+            if(!userWithUserNumber.givenPasswordIsCorrect(hashedPassword)){
+                throw new LogInException("Numero de usuario o contraseña incorrecto");
+            }
+        }catch (NullPointerException e) {
             throw new LogInException("Numero de usuario o contraseña incorrecto");
         }
     }
