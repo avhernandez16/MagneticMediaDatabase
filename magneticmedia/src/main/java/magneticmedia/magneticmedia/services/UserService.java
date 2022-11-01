@@ -11,7 +11,6 @@ import magneticmedia.magneticmedia.helpers.InternalJwtHelper;
 import magneticmedia.magneticmedia.helpers.PasswordHashingHelper;
 import magneticmedia.magneticmedia.models.User;
 import magneticmedia.magneticmedia.repositories.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,6 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    ModelMapper modelMapper;
     @Autowired
     PasswordHashingHelper passwordHashingHelper;
     @Autowired
@@ -39,8 +36,7 @@ public class UserService {
         String hashedPassword = passwordHashingHelper.hashPassword(registerUserDTO.getPassword(), randomSalt);
         registerUserDTO.setPassword(hashedPassword);
 
-        User newUser = modelMapper.map(registerUserDTO, User.class);
-        newUser.setSalt(randomSalt);
+        User newUser = new User(registerUserDTO.getUserNumber(), registerUserDTO.getName(), registerUserDTO.getPassword(), registerUserDTO.getWantsAudit(), randomSalt);
         userRepository.save(newUser);
     }
 
