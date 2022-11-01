@@ -1,7 +1,7 @@
-package magneticmedia.magneticmedia.services;
+package magneticmedia.magneticmedia.helpers;
 
 import magneticmedia.magneticmedia.exceptions.RegisterException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -11,8 +11,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 
-@Service
-public class PasswordHashingService {
+@Component
+public class PasswordHashingHelper {
 
     public String hashPassword(String password, byte[] salt) {
 

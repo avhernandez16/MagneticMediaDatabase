@@ -2,10 +2,13 @@ package magneticmedia.magneticmedia.services;
 
 import magneticmedia.magneticmedia.dtos.LogInUserDto;
 import magneticmedia.magneticmedia.dtos.RegisterUserDto;
+import magneticmedia.magneticmedia.dtos.TokenResponseDto;
 import magneticmedia.magneticmedia.dtos.UpdateUserDto;
 import magneticmedia.magneticmedia.exceptions.InexistentUserException;
 import magneticmedia.magneticmedia.exceptions.LogInException;
 import magneticmedia.magneticmedia.exceptions.RegisterException;
+import magneticmedia.magneticmedia.helpers.InternalJwtHelper;
+import magneticmedia.magneticmedia.helpers.PasswordHashingHelper;
 import magneticmedia.magneticmedia.models.User;
 import magneticmedia.magneticmedia.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -22,7 +25,9 @@ public class UserService {
     @Autowired
     ModelMapper modelMapper;
     @Autowired
-    PasswordHashingService passwordHashingService;
+    PasswordHashingHelper passwordHashingHelper;
+    @Autowired
+    InternalJwtHelper internalJwtHelper;
 
     public void registerUser(RegisterUserDto registerUserDTO) {
         Optional<User> userWithUserNumber = userRepository.findById(registerUserDTO.getUserNumber());
@@ -30,8 +35,8 @@ public class UserService {
             throw new RegisterException("Ya existe un usuario en el sistema usando el numero de usuario brindado");
         }
 
-        byte[] randomSalt = passwordHashingService.generateRandomSalt();
-        String hashedPassword = passwordHashingService.hashPassword(registerUserDTO.getPassword(), randomSalt);
+        byte[] randomSalt = passwordHashingHelper.generateRandomSalt();
+        String hashedPassword = passwordHashingHelper.hashPassword(registerUserDTO.getPassword(), randomSalt);
         registerUserDTO.setPassword(hashedPassword);
 
         User newUser = modelMapper.map(registerUserDTO, User.class);
@@ -39,14 +44,18 @@ public class UserService {
         userRepository.save(newUser);
     }
 
-    public void loginUser(LogInUserDto logInUserDto) {
+    public TokenResponseDto loginUser(LogInUserDto logInUserDto) {
         try {
             Optional<User> optionalUserWithUserNumber = userRepository.findById(logInUserDto.getUserNumber());
             User userWithUserNumber = optionalUserWithUserNumber.orElseThrow(NullPointerException::new);
-            String hashedPassword = passwordHashingService.hashPassword(logInUserDto.getPassword(), userWithUserNumber.getSalt());
+
+            String hashedPassword = passwordHashingHelper.hashPassword(logInUserDto.getPassword(), userWithUserNumber.getSalt());
             if(!userWithUserNumber.givenPasswordIsCorrect(hashedPassword)){
                 throw new LogInException("Numero de usuario o contraseña incorrecto");
             }
+
+            String token = internalJwtHelper.getTokenFor(userWithUserNumber.getUserNumber());
+            return new TokenResponseDto(token);
         }catch (NullPointerException e) {
             throw new LogInException("Numero de usuario o contraseña incorrecto");
         }

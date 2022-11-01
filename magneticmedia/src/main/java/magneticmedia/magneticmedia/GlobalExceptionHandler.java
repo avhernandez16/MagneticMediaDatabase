@@ -3,6 +3,7 @@ package magneticmedia.magneticmedia;
 import magneticmedia.magneticmedia.dtos.GenericErrorResponseDto;
 import magneticmedia.magneticmedia.dtos.ValidationErrorResponseDTO;
 import magneticmedia.magneticmedia.exceptions.InexistentUserException;
+import magneticmedia.magneticmedia.exceptions.InvalidJwtException;
 import magneticmedia.magneticmedia.exceptions.LogInException;
 import magneticmedia.magneticmedia.exceptions.RegisterException;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InexistentUserException.class)
     public ResponseEntity<GenericErrorResponseDto> handleInexistentUserException(InexistentUserException inexistentUserException){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new GenericErrorResponseDto(inexistentUserException.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidJwtException.class)
+    public ResponseEntity<GenericErrorResponseDto> handleInvalidJwtException(InvalidJwtException invalidJwtException){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericErrorResponseDto(invalidJwtException.getMessage()));
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
