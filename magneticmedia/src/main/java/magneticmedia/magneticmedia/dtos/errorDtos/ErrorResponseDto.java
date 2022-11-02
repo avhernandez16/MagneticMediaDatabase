@@ -1,4 +1,4 @@
-package magneticmedia.magneticmedia.dtos;
+package magneticmedia.magneticmedia.dtos.errorDtos;
 
 import lombok.Getter;
 

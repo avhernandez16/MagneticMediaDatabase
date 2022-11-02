@@ -1,4 +1,4 @@
-package magneticmedia.magneticmedia.dtos;
+package magneticmedia.magneticmedia.dtos.responseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package magneticmedia.magneticmedia.authentication;
+package magneticmedia.magneticmedia.security;
 
 import magneticmedia.magneticmedia.exceptions.InvalidJwtException;
 import magneticmedia.magneticmedia.helpers.InternalJwtHelper;
@@ -19,7 +19,7 @@ public class ValidateInternalJwtAspectAnnotation {
     @Autowired
     InternalJwtHelper internalJwtHelper;
 
-    @Around("@annotation(magneticmedia.magneticmedia.authentication.ValidateInternalJwt)")
+    @Around("@annotation(magneticmedia.magneticmedia.security.ValidateInternalJwt)")
     public Object logExecutionTimeAnnotation(ProceedingJoinPoint joinPoint) throws Throwable {
 
         try{

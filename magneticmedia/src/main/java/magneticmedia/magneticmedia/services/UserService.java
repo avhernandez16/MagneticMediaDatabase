@@ -2,7 +2,7 @@ package magneticmedia.magneticmedia.services;
 
 import magneticmedia.magneticmedia.dtos.LogInUserDto;
 import magneticmedia.magneticmedia.dtos.RegisterUserDto;
-import magneticmedia.magneticmedia.dtos.TokenResponseDto;
+import magneticmedia.magneticmedia.dtos.responseDto.TokenResponseDto;
 import magneticmedia.magneticmedia.dtos.UpdateUserDto;
 import magneticmedia.magneticmedia.exceptions.InexistentUserException;
 import magneticmedia.magneticmedia.exceptions.LogInException;
@@ -11,7 +11,6 @@ import magneticmedia.magneticmedia.helpers.InternalJwtHelper;
 import magneticmedia.magneticmedia.helpers.PasswordHashingHelper;
 import magneticmedia.magneticmedia.models.User;
 import magneticmedia.magneticmedia.repositories.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +20,11 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    ModelMapper modelMapper;
+    private PasswordHashingHelper passwordHashingHelper;
     @Autowired
-    PasswordHashingHelper passwordHashingHelper;
-    @Autowired
-    InternalJwtHelper internalJwtHelper;
+    private InternalJwtHelper internalJwtHelper;
 
     public void registerUser(RegisterUserDto registerUserDTO) {
         Optional<User> userWithUserNumber = userRepository.findById(registerUserDTO.getUserNumber());
@@ -39,8 +36,7 @@ public class UserService {
         String hashedPassword = passwordHashingHelper.hashPassword(registerUserDTO.getPassword(), randomSalt);
         registerUserDTO.setPassword(hashedPassword);
 
-        User newUser = modelMapper.map(registerUserDTO, User.class);
-        newUser.setSalt(randomSalt);
+        User newUser = new User(registerUserDTO.getUserNumber(), registerUserDTO.getName(), registerUserDTO.getPassword(), registerUserDTO.getWantsAudit(), randomSalt);
         userRepository.save(newUser);
     }
 
