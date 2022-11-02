@@ -1,6 +1,8 @@
 package magneticmedia.magneticmedia.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import magneticmedia.magneticmedia.dtos.RegisterUserDto;
 import magneticmedia.magneticmedia.dtos.UpdateUserDto;
@@ -13,6 +15,8 @@ import javax.persistence.Table;
 @Table(name = "users")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor //constructor sin argumentos necesario para que springJPA pueda trabajar
 public class User {
 
     @Id

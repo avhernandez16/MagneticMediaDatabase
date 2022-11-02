@@ -1,7 +1,7 @@
 package magneticmedia.magneticmedia;
 
-import magneticmedia.magneticmedia.dtos.GenericErrorResponseDto;
-import magneticmedia.magneticmedia.dtos.ValidationErrorResponseDTO;
+import magneticmedia.magneticmedia.dtos.errorDtos.GenericErrorResponseDto;
+import magneticmedia.magneticmedia.dtos.errorDtos.ValidationErrorResponseDTO;
 import magneticmedia.magneticmedia.exceptions.InexistentUserException;
 import magneticmedia.magneticmedia.exceptions.InvalidJwtException;
 import magneticmedia.magneticmedia.exceptions.LogInException;

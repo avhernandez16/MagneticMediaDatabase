@@ -1,9 +1,9 @@
 package magneticmedia.magneticmedia.controllers;
 
-import magneticmedia.magneticmedia.authentication.ValidateInternalJwt;
+import magneticmedia.magneticmedia.security.ValidateInternalJwt;
 import magneticmedia.magneticmedia.dtos.LogInUserDto;
 import magneticmedia.magneticmedia.dtos.RegisterUserDto;
-import magneticmedia.magneticmedia.dtos.TokenResponseDto;
+import magneticmedia.magneticmedia.dtos.responseDto.TokenResponseDto;
 import magneticmedia.magneticmedia.dtos.UpdateUserDto;
 import magneticmedia.magneticmedia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class UserController {
 
     @ValidateInternalJwt
     @PutMapping("/user/{userNumber}/edit")
-    public ResponseEntity<RegisterUserDto> updateUserData(
+    public ResponseEntity<UpdateUserDto> updateUserData(
             @RequestHeader("Authorization") String token,
             @PathVariable String userNumber,
             @Valid @RequestBody UpdateUserDto updateUserDto){
