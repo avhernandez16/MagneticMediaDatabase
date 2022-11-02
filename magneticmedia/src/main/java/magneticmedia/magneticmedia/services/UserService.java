@@ -2,7 +2,7 @@ package magneticmedia.magneticmedia.services;
 
 import magneticmedia.magneticmedia.dtos.LogInUserDto;
 import magneticmedia.magneticmedia.dtos.RegisterUserDto;
-import magneticmedia.magneticmedia.dtos.TokenResponseDto;
+import magneticmedia.magneticmedia.dtos.responseDto.TokenResponseDto;
 import magneticmedia.magneticmedia.dtos.UpdateUserDto;
 import magneticmedia.magneticmedia.exceptions.InexistentUserException;
 import magneticmedia.magneticmedia.exceptions.LogInException;
@@ -20,11 +20,11 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    PasswordHashingHelper passwordHashingHelper;
+    private PasswordHashingHelper passwordHashingHelper;
     @Autowired
-    InternalJwtHelper internalJwtHelper;
+    private InternalJwtHelper internalJwtHelper;
 
     public void registerUser(RegisterUserDto registerUserDTO) {
         Optional<User> userWithUserNumber = userRepository.findById(registerUserDTO.getUserNumber());
