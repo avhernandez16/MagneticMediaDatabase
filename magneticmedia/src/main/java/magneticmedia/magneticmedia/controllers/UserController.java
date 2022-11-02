@@ -1,6 +1,6 @@
 package magneticmedia.magneticmedia.controllers;
 
-import magneticmedia.magneticmedia.authentication.ValidateInternalJwt;
+import magneticmedia.magneticmedia.security.ValidateInternalJwt;
 import magneticmedia.magneticmedia.dtos.LogInUserDto;
 import magneticmedia.magneticmedia.dtos.RegisterUserDto;
 import magneticmedia.magneticmedia.dtos.responseDto.TokenResponseDto;

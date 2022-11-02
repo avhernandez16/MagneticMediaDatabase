@@ -1,6 +1,6 @@
 package magneticmedia.magneticmedia.controllers;
 
-import magneticmedia.magneticmedia.authentication.ValidateInternalJwt;
+import magneticmedia.magneticmedia.security.ValidateInternalJwt;
 import magneticmedia.magneticmedia.dtos.CatalogueAdditionDto;
 import magneticmedia.magneticmedia.services.CatalogueService;
 import org.springframework.beans.factory.annotation.Autowired;

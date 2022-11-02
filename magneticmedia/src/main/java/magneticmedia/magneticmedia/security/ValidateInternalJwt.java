@@ -1,4 +1,4 @@
-package magneticmedia.magneticmedia.authentication;
+package magneticmedia.magneticmedia.security;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
