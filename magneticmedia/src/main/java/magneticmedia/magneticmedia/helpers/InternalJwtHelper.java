@@ -26,7 +26,7 @@ public class InternalJwtHelper {
         return Jwts.builder().setClaims(claims)
                 .setSubject(userNumber)
                 .setIssuedAt(Date.from(ins))
-                .setExpiration(java.util.Date.from(ins.plus(4, ChronoUnit.HOURS)))
+                .setExpiration(java.util.Date.from(ins.plus(1, ChronoUnit.HOURS)))
                 .signWith(sA,secret)
                 .compact();
     }

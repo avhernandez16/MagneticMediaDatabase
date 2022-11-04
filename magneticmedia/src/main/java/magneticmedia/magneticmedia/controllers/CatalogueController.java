@@ -1,14 +1,11 @@
 package magneticmedia.magneticmedia.controllers;
 
 import magneticmedia.magneticmedia.security.ValidateInternalJwt;
-import magneticmedia.magneticmedia.dtos.CatalogueAdditionDto;
+import magneticmedia.magneticmedia.dtos.CatalogueDto;
 import magneticmedia.magneticmedia.services.CatalogueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,11 +17,21 @@ public class CatalogueController {
 
     @ValidateInternalJwt
     @PostMapping("/catalogue/add")
-    public ResponseEntity<CatalogueAdditionDto> addCatalogo(
+    public ResponseEntity<CatalogueDto> addCatalogo(
             @RequestHeader("Authorization") String token,
-            @Valid @RequestBody CatalogueAdditionDto catalogueAdditionDto){
+            @Valid @RequestBody CatalogueDto catalogueDto){
 
-        catalogueService.addCatalogo(catalogueAdditionDto);
+        catalogueService.addCatalogo(catalogueDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @ValidateInternalJwt
+    @DeleteMapping("/catalogue/delete")
+    public ResponseEntity<CatalogueDto> deleteCatalogo(
+            @RequestHeader("Authorization") String token,
+            @Valid @RequestBody CatalogueDto catalogueDto){
+
+        catalogueService.deleteCatalogue(catalogueDto);
         return ResponseEntity.ok().build();
     }
 }
