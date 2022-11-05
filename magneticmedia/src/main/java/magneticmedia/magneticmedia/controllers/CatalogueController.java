@@ -1,5 +1,6 @@
 package magneticmedia.magneticmedia.controllers;
 
+import magneticmedia.magneticmedia.dtos.CatalogueEditionDto;
 import magneticmedia.magneticmedia.security.ValidateInternalJwt;
 import magneticmedia.magneticmedia.dtos.CatalogueDto;
 import magneticmedia.magneticmedia.services.CatalogueService;
@@ -32,6 +33,16 @@ public class CatalogueController {
             @Valid @RequestBody CatalogueDto catalogueDto){
 
         catalogueService.deleteCatalogue(catalogueDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @ValidateInternalJwt
+    @PutMapping("/catalogue/edit")
+    public ResponseEntity<CatalogueDto> editCatalogo(
+            @RequestHeader("Authorization") String token,
+            @Valid @RequestBody CatalogueEditionDto catalogueEditionDto){
+
+        catalogueService.editCatalogue(catalogueEditionDto);
         return ResponseEntity.ok().build();
     }
 }
