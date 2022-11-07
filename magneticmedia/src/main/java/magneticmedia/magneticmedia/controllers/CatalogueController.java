@@ -37,12 +37,13 @@ public class CatalogueController {
     }
 
     @ValidateInternalJwt
-    @PutMapping("/catalogue/edit")
+    @PutMapping("/catalogue/edit/{catalogueToEditName}")
     public ResponseEntity<CatalogueDto> editCatalogo(
             @RequestHeader("Authorization") String token,
+            @PathVariable String catalogueToEditName,
             @Valid @RequestBody CatalogueEditionDto catalogueEditionDto){
 
-        catalogueService.editCatalogue(catalogueEditionDto);
+        catalogueService.editCatalogue(catalogueToEditName, catalogueEditionDto);
         return ResponseEntity.ok().build();
     }
 }

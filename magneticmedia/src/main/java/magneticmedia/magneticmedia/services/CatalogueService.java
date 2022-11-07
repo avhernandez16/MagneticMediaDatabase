@@ -34,21 +34,25 @@ public class CatalogueService {
         }catch (EmptyResultDataAccessException ignored){}
     }
 
-    public void editCatalogue(CatalogueEditionDto catalogueEditionDto) {
-        /*Server newServer = new Server(catalogueEditionDto.getNewServerIpV4(), catalogueEditionDto.getNewServerName(), catalogueEditionDto.getNewCatalogueName());
-        Optional<Catalogue> catalogueWithNewCatalogueId = catalogueRepository.findByCatalogueId(newServer);
-        if(catalogueWithNewCatalogueId.isPresent()){
-            throw new CatalogueException("La IpV4, el nombre de servicor o el nombre del catalogo ingresados ya se encuentran en uso");
+    public void editCatalogue(String catalogueToEditName, CatalogueEditionDto catalogueEditionDto) {
+        Optional<Catalogue> catalogueWithCatalogueId = catalogueRepository.findById(catalogueToEditName);
+        if(catalogueWithCatalogueId.isEmpty()){
+            throw new CatalogueException("No existe en el sistema un Catálogo con ese nombre, ip de servidor o nombre de servidor");
         }
-
-        Server oldServer = new Server(catalogueEditionDto.getOldServerIpV4(), catalogueEditionDto.getOldServerName(), catalogueEditionDto.getOldCatalogueName());
-        Optional<Catalogue> catalogueWithOldCatalogueId = catalogueRepository.findByCatalogueId(oldServer);
-        if(catalogueWithOldCatalogueId.isEmpty()){
-            throw new CatalogueException("No existe un catalogo con dicha IpV4, nombre de servicor y/o el nombre del catalogo");
+        Catalogue catalogueToEdit = catalogueWithCatalogueId.get();
+        if(catalogueToEdit.getCycle() != catalogueEditionDto.getCycle()){
+            Server server = catalogueToEdit.getServer();
+            CatalogueDto newCatalogueDto = new CatalogueDto(server.getServerIpV4(), server.getServerName(), catalogueToEdit.getCatalogueName(), catalogueEditionDto.getConsole(),
+                    catalogueEditionDto.getCycle(), catalogueEditionDto.getProgram(), catalogueEditionDto.getTecnology(), catalogueEditionDto.getMonthWeekNumber());
+            Catalogue newCatalogue = catalogueEditionDto.getCycle().createCatalogue(newCatalogueDto);
+            catalogueRepository.delete(catalogueToEdit);
+            catalogueRepository.save(newCatalogue);
         }else{
-            Catalogue catalogueToUpdate = catalogueWithOldCatalogueId.get();
-            catalogueToUpdate.setServer(newServer);
-            catalogueRepository.save(catalogueToUpdate);
-        }*/
+            catalogueToEdit.setConsole(catalogueEditionDto.getConsole());
+            catalogueToEdit.setProgram(catalogueEditionDto.getProgram());
+            catalogueToEdit.setTecnology(catalogueEditionDto.getTecnology());
+
+            catalogueRepository.save(catalogueToEdit);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package magneticmedia.magneticmedia.models;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import magneticmedia.magneticmedia.models.enums.Cycle;
 import magneticmedia.magneticmedia.models.enums.Program;
@@ -16,6 +18,8 @@ import javax.persistence.*;
 @DiscriminatorValue("1")
 @SuperBuilder
 @NoArgsConstructor
+@Getter
+@Setter
 public class Catalogue {
 
     @Id

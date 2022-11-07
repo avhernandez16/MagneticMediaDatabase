@@ -1,33 +1,28 @@
 package magneticmedia.magneticmedia.dtos;
 
 import lombok.Getter;
-import magneticmedia.magneticmedia.security.ValidateIpAddress;
+import magneticmedia.magneticmedia.models.MonthWeekNumber;
+import magneticmedia.magneticmedia.models.enums.Cycle;
+import magneticmedia.magneticmedia.models.enums.Program;
+import magneticmedia.magneticmedia.models.enums.Tecnology;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Valid
 public class CatalogueEditionDto {
-
-    @NotBlank(message = "Server IP field can't be empty or null in the boddy json")
-    @ValidateIpAddress
-    private String oldServerIpV4;
-    @NotBlank(message = "Server Name field can't be empty or null in the boddy json")
-    @Length(min = 4, max = 30, message = "Server name should have between 4 and 30 characters length")
-    private String oldServerName;
-    @NotBlank(message = "Catalogue name field can't be empty or null in the boddy json")
-    @Length(min = 4, max = 30, message = "Catalog name should have between 4 and 30 characters length")
-    private String oldCatalogueName;
-
-    @NotBlank(message = "Server IP field can't be empty or null in the boddy json")
-    @ValidateIpAddress
-    private String newServerIpV4;
-    @NotBlank(message = "Server Name field can't be empty or null in the boddy json")
-    @Length (min = 4, max = 30, message = "Server name should have between 4 and 30 characters length")
-    private String newServerName;
-    @NotBlank(message = "Catalogue name field can't be empty or null in the boddy json")
-    @Length(min = 4, max = 30, message = "Catalog name should have between 4 and 30 characters length")
-    private String newCatalogueName;
+    @NotBlank(message = "Console field can't be empty or null in the boddy json")
+    @Length(min = 4, max = 10, message = "console field should have between 4 and 10 characters length")
+    private String console;
+    @NotNull(message = "Cycle field can't be empty or null in the boddy json")
+    private Cycle cycle;
+    @NotNull(message = "Program field can't be empty or null in the boddy json")
+    private Program program;
+    @NotNull(message = "Tecnology field can't be empty or null in the boddy json")
+    private Tecnology tecnology;
+    @NotNull(message = "Week number of the Month field can't be empty or null in the boddy json")
+    private MonthWeekNumber monthWeekNumber;
 }

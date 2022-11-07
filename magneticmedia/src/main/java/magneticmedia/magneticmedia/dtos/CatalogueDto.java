@@ -1,5 +1,6 @@
 package magneticmedia.magneticmedia.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import magneticmedia.magneticmedia.models.MonthWeekNumber;
@@ -15,6 +16,7 @@ import javax.validation.constraints.*;
 @Getter
 @Setter
 @Valid
+@AllArgsConstructor
 public class CatalogueDto {
 
     @NotBlank(message = "Server IP field can't be empty or null in the boddy json")
