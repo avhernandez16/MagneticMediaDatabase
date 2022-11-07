@@ -2,9 +2,14 @@ package magneticmedia.magneticmedia.services;
 
 import magneticmedia.magneticmedia.dtos.CatalogueDto;
 import magneticmedia.magneticmedia.dtos.CatalogueEditionDto;
+import magneticmedia.magneticmedia.exceptions.CatalogueException;
+import magneticmedia.magneticmedia.models.Catalogue;
+import magneticmedia.magneticmedia.models.Server;
 import magneticmedia.magneticmedia.repositories.CatalogueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CatalogueService {
@@ -13,16 +18,13 @@ public class CatalogueService {
     private CatalogueRepository catalogueRepository;
 
     public void addCatalogo(CatalogueDto catalogueDto) {
-
-        /*Server server = new Server(catalogueDto.getServerIpV4(), catalogueDto.getServerName(), catalogueDto.getCatalogueName());
-
-        Optional<Catalogue> catalogueWithCatalogueId = catalogueRepository.findByCatalogueId(server);
+        Optional<Catalogue> catalogueWithCatalogueId = catalogueRepository.findById(catalogueDto.getCatalogueName());
         if(catalogueWithCatalogueId.isPresent()){
             throw new CatalogueException("Ya existe un catalogo el sistema con ese nombre, ip de servidor o nombre de servidor");
         }
 
-        Catalogue newCatalogue = new Catalogue(server, Ciclo.SEMANAL);
-        catalogueRepository.save(newCatalogue);*/
+        Catalogue newCatalogue = catalogueDto.getCycle().createCatalogue(catalogueDto);
+        catalogueRepository.save(newCatalogue);
     }
 
     public void deleteCatalogue(CatalogueDto catalogueDto) {

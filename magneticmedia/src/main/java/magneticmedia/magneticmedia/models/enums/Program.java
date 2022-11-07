@@ -1,6 +1,6 @@
 package magneticmedia.magneticmedia.models.enums;
 
-public enum Programa {
+public enum Program {
     DATAPROTECTOR,
     COMMVAULT
 }

@@ -1,11 +1,10 @@
 package magneticmedia.magneticmedia.models;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import magneticmedia.magneticmedia.models.enums.Ciclo;
-import magneticmedia.magneticmedia.models.enums.Programa;
-import magneticmedia.magneticmedia.models.enums.Tecnologia;
+import lombok.experimental.SuperBuilder;
+import magneticmedia.magneticmedia.models.enums.Cycle;
+import magneticmedia.magneticmedia.models.enums.Program;
+import magneticmedia.magneticmedia.models.enums.Tecnology;
 
 import javax.persistence.*;
 
@@ -15,6 +14,8 @@ import javax.persistence.*;
 @DiscriminatorColumn(name="catalogue_type",
         discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("1")
+@SuperBuilder
+@NoArgsConstructor
 public class Catalogue {
 
     @Id
@@ -23,9 +24,9 @@ public class Catalogue {
     @JoinColumn(name = "server_id", referencedColumnName = "serverIpV4")
     private Server server;
 
-    private Ciclo ciclo;
-    private Tecnologia tecnologia;
-    private Programa programa;
+    private Cycle cycle;
+    private Tecnology tecnology;
+    private Program program;
 
-    private String consola;
+    private String console;
 }
