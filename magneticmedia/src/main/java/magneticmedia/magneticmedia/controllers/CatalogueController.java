@@ -27,12 +27,12 @@ public class CatalogueController {
     }
 
     @ValidateInternalJwt
-    @DeleteMapping("/catalogue/delete")
+    @DeleteMapping("/catalogue/delete/{catalogueToDeleteName}")
     public ResponseEntity<CatalogueDto> deleteCatalogo(
             @RequestHeader("Authorization") String token,
-            @Valid @RequestBody CatalogueDto catalogueDto){
+            @PathVariable String catalogueToDeleteName){
 
-        catalogueService.deleteCatalogue(catalogueDto);
+        catalogueService.deleteCatalogue(catalogueToDeleteName);
         return ResponseEntity.ok().build();
     }
 

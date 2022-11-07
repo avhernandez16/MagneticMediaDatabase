@@ -7,6 +7,7 @@ import magneticmedia.magneticmedia.models.Catalogue;
 import magneticmedia.magneticmedia.models.Server;
 import magneticmedia.magneticmedia.repositories.CatalogueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,13 +28,10 @@ public class CatalogueService {
         catalogueRepository.save(newCatalogue);
     }
 
-    public void deleteCatalogue(CatalogueDto catalogueDto) {
-        /*Server server = new Server(catalogueDto.getServerIpV4(), catalogueDto.getServerName(), catalogueDto.getCatalogueName());
+    public void deleteCatalogue(String catalogueToDeleteName) {
         try{
-            catalogueRepository.deleteById(server);
-        }catch (EmptyResultDataAccessException ignored){
-
-        }*/
+            catalogueRepository.deleteById(catalogueToDeleteName);
+        }catch (EmptyResultDataAccessException ignored){}
     }
 
     public void editCatalogue(CatalogueEditionDto catalogueEditionDto) {
