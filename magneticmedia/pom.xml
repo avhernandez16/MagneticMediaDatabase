@@ -9,12 +9,14 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>magneticmedia</groupId>
-	<artifactId>magneticmedia</artifactId>
+	<artifactId>magneticmedia</artifactId>	
 	<version>0.0.1-SNAPSHOT</version>
 	<name>magneticmedia</name>
+	<packaging>war</packaging>	
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<maven.test.skip>true</maven.test.skip>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -88,6 +90,15 @@
 			<version>0.11.2</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- DEPENDENCIA TOMACAT -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>   
+    	
+    
+    	
 	</dependencies>
 
 	<build>
